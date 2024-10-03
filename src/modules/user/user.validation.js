@@ -13,7 +13,7 @@ const getSpecificUserValidation = Joi.object({
 
 
 const updateUserValidation = Joi.object({
-  name:Joi.string().min(2).max(20).required(),
+  name:Joi.string().min(2).max(20),
   role:Joi.string().valid('user', 'admin').default('user'),
   id:Joi.string().hex().length(24).required()
 
