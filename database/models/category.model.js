@@ -21,6 +21,12 @@ const CategorySchema = new Schema({
   }
    
 },{timestamps:true, versionKey:false})
+
+CategorySchema.post('init',function(doc) {
+doc.image = process.env.BASE_URL + "categories/" + doc.image
+
+})
+
 const CategoryModel =model('Category',CategorySchema)
 
 

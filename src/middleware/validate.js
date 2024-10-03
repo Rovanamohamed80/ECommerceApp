@@ -1,11 +1,7 @@
-import { signUpVal } from "../modules/users/user.validation.js"
-
-
-
 
 export const validate=(schema)=>{
     return(req,res,next) =>{
-        let {error} = schema.validate({...req.body,...req.params,...req.query},{abortEarly:false})
+        let {error} = schema.validate({image:req.file,...req.body,...req.params,...req.query},{abortEarly:false})
             if(!error){
                 next()
             }else{

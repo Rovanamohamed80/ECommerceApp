@@ -20,6 +20,11 @@ const BrandSchema = new Schema({
   }
 
 },{timestamps:true, versionKey:false})
+
+BrandSchema.post('init',function(doc) {
+  doc.logo = process.env.BASE_URL + "brands/" + doc.logo
+  
+  })
 const BrandModel =model('Brand',BrandSchema)
 
 

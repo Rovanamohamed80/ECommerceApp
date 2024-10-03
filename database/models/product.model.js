@@ -59,7 +59,26 @@ const ProductSchema = new Schema({
     ref: 'User'
   }
 
-},{timestamps:true, versionKey:false})
+},{timestamps:true, versionKey:false , toJSON: { virtuals: true } })
+
+ProductSchema.virtual('myReviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'product'
+});
+
+ProductSchema.pre("findOne",function() {
+  this.populate('myReviews')
+ })
+  
+
+ProductSchema.post('init',function(doc) {
+  if(doc.imageCover) doc.imageCover = process.env.BASE_URL + "products/" + doc.imageCover
+  if(doc.images) doc.images = doc.images.map(img=> process.env.BASE_URL + "products/" + img)
+  
+  })
+  
+  
 const ProductModel =model('Product',ProductSchema)
 
 
